@@ -1,2 +1,3 @@
-# clojure-for-the-brave
-My exercises following the book Clojure For The Brave And True
+# Clojure For The Brave And True
+
+This repository will contain the code written following the book __Clojure For The Brave And True__
