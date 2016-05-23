@@ -59,8 +59,9 @@ I'm a print, don't return a thing
 
 the print inside the if doens't return anything, so it implicitly returns a nil which is considered like a false value.
 
-or and and
+OR and AND
 ==========
+
 Logical operators works like `&&` and `||` in Javascript, working on a list of values. But be warned because __0 is not falsey__ in Clojure, but it is in ES6:
 
 Clojure:
