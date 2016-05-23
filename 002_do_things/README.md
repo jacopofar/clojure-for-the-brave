@@ -17,4 +17,7 @@ user=> (+,1  3)
 4
 user=> (+,1 3)
 4
+user=> (+,,,,1, 3)
+4
 ```
+the last one is awkward but works
