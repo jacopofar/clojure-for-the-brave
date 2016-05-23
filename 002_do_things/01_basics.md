@@ -58,3 +58,44 @@ I'm a print, don't return a thing
 ```
 
 the print inside the if doens't return anything, so it implicitly returns a nil which is considered like a false value.
+
+or and and
+==========
+Logical operators works like `&&` and `||` in Javascript, working on a list of values. But be warned because __0 is not falsey__ in Clojure, but it is in ES6:
+
+Clojure:
+
+```
+user=> (or false false 4 5)
+4
+user=> (or false nil 4)
+4
+user=> (and 2 3 4)
+4
+user=> (and 2 false 4)
+false
+user=> (and 2 nil 4)
+nil
+
+
+```
+
+Javascript (I'm using Nodejs 6.1, but it should be the same in any engine):
+
+```
+> false || undefined || 4 || 5
+4
+> false || undefined || undefined
+undefined
+> 2 && 3 && 4
+4
+> 2 && false && 4
+false
+> 2 && undefined && 4
+undefined
+```
+
+So, _and_ return the first falsey value or the last one of the list it they were all true, while true returns the first true-y value, or the last one otherwise.
+
+This implies that they behave just like the logical and or or we expect, an and with a list of forms will ve falsey unless they are all true and an or will be true-y if at least one is true.
+The interesting thing is that in both languages a value of the list is returned, not a simple true of false value, however that value is falsey or true-y just like the logical AND or OR or would be true or false.
