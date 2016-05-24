@@ -139,7 +139,13 @@ user=> (= :a :a)
 true
 ```
 
-then, to access a value we use `get`, and we can use it recursively to acces a value inside an hashmap which is a value itself..
+then, to access a value we use `get`, and we can use it recursively to acces a value inside an hashmap which is a value itself.
+
+We can also create an hashmap without using the literals:
+```clojure
+user=> (hash-map :a 1 :b 2 :c (hash-map :r "hello" :q 34))
+{:c {:q 34, :r "hello"}, :b 2, :a 1}
+```
 
 It's not possible to alter a value of a map, and in general in functional languages is better to avoid changing a value. Using immutable data structures ensures that functions are pure (that is, they have no side effects and strictly return a deterministic output for a given input) and allows to use concurrency safely with no risk of race conditions.
 
