@@ -8,7 +8,7 @@ Those can be seen as the product of a simple generative grammar:
 
 whitespaces and commas can be used to separate values in forms, repeated ones are ignored. So these are all equivalents:
 
-```
+```clojure
 user=> (+ 1 3)
 4
 user=> (+,1,3)
@@ -29,7 +29,7 @@ If and do
 
 So this can work:
 
-```
+```clojure
 user=> (if (= 5 (+ 3 2)) "it's equal!" "it's not equal")
 "it's equal!"
 
@@ -42,7 +42,7 @@ in the second case the form prints the string and return `nil`, since nothing wa
 
 It's nice and functional but in some cases we want to perform multiple actions before returning anything, so the `do` operator comes to the rescue:
 
-```
+```clojure
 user=> (do (println "hello") (println "world") 42)
 hello
 world
@@ -66,7 +66,7 @@ Logical operators works like `&&` and `||` in Javascript, working on a list of v
 
 Clojure:
 
-```
+```clojure
 user=> (or false false 4 5)
 4
 user=> (or false nil 4)
@@ -77,13 +77,11 @@ user=> (and 2 false 4)
 false
 user=> (and 2 nil 4)
 nil
-
-
 ```
 
 Javascript (I'm using Nodejs 6.1, but it should be the same in any engine):
 
-```
+```javascript
 > false || undefined || 4 || 5
 4
 > false || undefined || undefined
