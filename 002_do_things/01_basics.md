@@ -142,6 +142,7 @@ true
 then, to access a value we use `get`, and we can use it recursively to acces a value inside an hashmap which is a value itself.
 
 We can also create an hashmap without using the literals:
+
 ```clojure
 user=> (hash-map :a 1 :b 2 :c (hash-map :r "hello" :q 34))
 {:c {:q 34, :r "hello"}, :b 2, :a 1}
@@ -150,3 +151,33 @@ user=> (hash-map :a 1 :b 2 :c (hash-map :r "hello" :q 34))
 It's not possible to alter a value of a map, and in general in functional languages is better to avoid changing a value. Using immutable data structures ensures that functions are pure (that is, they have no side effects and strictly return a deterministic output for a given input) and allows to use concurrency safely with no risk of race conditions.
 
 That said, you can still use `def` multiple times and overwrite a value, just try to avoid it :)
+
+Vectors and []()ists
+------
+ A vector is a list of elements preserving the order. And guess what? They are very similar to Javascript ones!
+
+ ```clojure
+ user=> (def myvector [1 2 3 12 2 "hello" 7 {:a 99}])
+ #'user/myvector
+ user=> myvector
+ [1 2 3 12 2 "hello" 7 {:a 99}]
+ user=> (get (get myvector 7) :a)
+99
+user=> (conj myvector 99)
+[1 2 3 12 2 "hello" 7 {:a 99} 99]
+ ```
+`conj` adds an element at the end of the vecotr and returns the new one.
+
+a `list`, on the other hand, is slightly different:
+
+```clojure
+user=> (list 1 "two" {3 4})
+(1 "two" {3 4})
+user=> '(1 2 4 1)
+(1 2 4 1)
+user=> (nth '(1 2 4 1) 3)
+1
+user=> (conj '(1 2 4 1) 99)
+(99 1 2 4 1)
+```
+you can't use get on the list, use nth instead, and conj appends at the beginning. The difference is that Clojure implements lists as linked lists, so the access to the element N is slower (it needs to traverse the list), while adding an element is faster.
