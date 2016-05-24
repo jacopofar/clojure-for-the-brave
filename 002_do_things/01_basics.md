@@ -109,6 +109,38 @@ user=> (def mynumber (+ 1 3))
 user=> mynumber
 4
 ```
-variables have a namespace (" _user/mynumber_ " in this case), more on that later. Array destructuring is not allowed by `def` but there are variations supporting it like Python or ES6.
+variables have a namespace (" _user/mynumber_ " in this case), more on that later.
 
-By the way, strings are quoted only with double quotes.
+Array destructuring is not allowed by `def` direcly but there are variations like `let` supporting it like Python or ES6.
+
+By the way, strings are quoted __only with double quotes__.
+
+Maps and Keywords
+----
+Hash maps are provided natively without further libraries or imports, and their creation just look like Javascript or Python while the access is slightly different.
+
+```clojure
+user=> (get {:a 0 :d {:e 4}} :d)
+{:e 4}
+user=> (get {"a" 0 "tt" {"e" 4}} "tt")
+{"e" 4}
+user=> (get (get {"a" 0 "tt" {"e" 4}} "tt") "e")
+4
+```
+
+We can see a few interesting things here. First, the expression `:a` defines a __keyword__, which is like a ES6 Symbol: a glorified string, that can be used as a key in maps, and is different from the corresponding string:
+
+```clojure
+user=> (= "a" :a)
+false
+user=> (= "a" "a")
+true
+user=> (= :a :a)
+true
+```
+
+then, to access a value we use `get`, and we can use it recursively to acces a value inside an hashmap which is a value itself..
+
+It's not possible to alter a value of a map, and in general in functional languages is better to avoid changing a value. Using immutable data structures ensures that functions are pure (that is, they have no side effects and strictly return a deterministic output for a given input) and allows to use concurrency safely with no risk of race conditions.
+
+That said, you can still use `def` multiple times and overwrite a value, just try to avoid it :)
