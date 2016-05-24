@@ -117,7 +117,7 @@ By the way, strings are quoted __only with double quotes__.
 
 Maps and Keywords
 ----
-Hash maps are provided natively without further libraries or imports, and their creation just look like Javascript or Python while the access is slightly different.
+Hash maps are provided natively without further libraries or imports, and their creation just look like Javascript or Python while the access is slightly different. Clojure also provide ordered maps but are not shown here.
 
 ```clojure
 user=> (get {:a 0 :d {:e 4}} :d)
@@ -152,7 +152,7 @@ It's not possible to alter a value of a map, and in general in functional langua
 
 That said, you can still use `def` multiple times and overwrite a value, just try to avoid it :)
 
-Vectors and []()ists
+Vectors and lists
 ------
  A vector is a list of elements preserving the order. And guess what? They are very similar to Javascript ones!
 
@@ -181,3 +181,37 @@ user=> (conj '(1 2 4 1) 99)
 (99 1 2 4 1)
 ```
 you can't use get on the list, use nth instead, and conj appends at the beginning. The difference is that Clojure implements lists as linked lists, so the access to the element N is slower (it needs to traverse the list), while adding an element is faster.
+
+Sets
+----
+
+Sets are collection of distinct elements. Again, they behave pretty much like a ES6 Set or a Java Set. Just like maps there are hash sets and sorted sets, and here only hash sets are shown.
+```clojure
+user=> #{1 3 4 1 67}
+IllegalArgumentException Duplicate key: 1  clojure.lang.PersistentHashSet.createWithCheck (PersistentHashSet.java:68)
+user=> #{1 3 4 67}
+#{1 4 3 67}
+user=> (hash-set 1 3 4 1 67)
+#{1 4 3 67}
+user=> ( conj (hash-set 1 3 4 1 67) 67)
+#{1 4 3 67}
+user=> ( conj (hash-set 1 3 4 1 67) 52)
+#{1 4 3 52 67}
+```
+
+note that using the literal notation `#{...}` duplicate elements raise an error, while the `hash-set` operator silently ignore them.
+
+`contains?` operator checks that an element is inside a set. By convention operators ending with _?_ are predicates returning true or false. The `get` operator instead not only checks the presence but also return the value itself
+
+```clojure
+user=> (contains? (hash-set 1 3 4 1 67) 67)
+true
+user=> (contains? (hash-set 1 3 4 1 67) 68)
+false
+user=> (get (hash-set 1 3 4 1 67) 53)
+nil
+user=> (get (hash-set 1 3 4 1 67) 67)
+67
+```
+
+which can be useful to perform the check and the retrieval of the value in a single step.
