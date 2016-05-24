@@ -22,8 +22,8 @@ user=> (+,,,,1, 3)
 ```
 the last one is awkward but works.
 
-If and do
-=========
+If and Do
+---------
 
 `If` behave similarly to the ternary operator ` ? : `, just like the Scala ones.
 
@@ -60,7 +60,7 @@ I'm a print, don't return a thing
 the print inside the if doens't return anything, so it implicitly returns a nil which is considered like a false value.
 
 OR and AND
-==========
+---------
 
 Logical operators works like `&&` and `||` in Javascript, working on a list of values. But be warned because __0 is not falsey__ in Clojure, but it is in ES6:
 
@@ -98,3 +98,17 @@ So, _and_ return the first falsey value or the last one of the list it they were
 
 This implies that they behave just like the logical and or or we expect, an and with a list of forms will ve falsey unless they are all true and an or will be true-y if at least one is true.
 The interesting thing is that in both languages a value of the list is returned, not a simple true of false value, however that value is falsey or true-y just like the logical AND or OR or would be true or false.
+
+Naming Values
+---------
+Variables can be declared with `def`
+
+```clojure
+user=> (def mynumber (+ 1 3))
+#'user/mynumber
+user=> mynumber
+4
+```
+variables have a namespace (" _user/mynumber_ " in this case), more on that later. Array destructuring is not allowed by `def` but there are variations supporting it like Python or ES6.
+
+By the way, strings are quoted only with double quotes.
