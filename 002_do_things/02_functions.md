@@ -19,3 +19,54 @@ user=> (map inc [1 2 3 99])
 ```
 
 here `inc` is a function in the standard library which does nothing but add 1 to its input; `map` applies the given function to a list of elements. It does return a list (note the round brackets instead of the squared ones).
+
+There are two special functions: __macros__ and __special forms__. Macros will be detailed later, while special forms are structures like the if which, as we saw, can avoid evaluating some of their operands.
+
+19.30 --
+
+Defining a function
+------------------
+
+It's simple using the `defn` keyword
+
+```clojure
+user=> (defn triple "the triple of a number" [number] (* number 3))
+#'user/triple
+user=> (triple 2)
+6
+```
+
+parameters go inside the square brackets. After the function name is possible to define an optional short description, which is a way to document the code embeded in the language itself. So from the repl we can see the description:
+
+```clojure
+user=> (doc triple)
+-------------------------
+user/triple
+([number])
+  the triple of a number
+nil
+```
+
+and it's possible to define multiple arity functions
+
+```clojure
+user=> (defn triple "the triple of nothing is zero" [] 0)
+#'user/triple
+user=> (triple)
+0
+```
+
+functions are identified by their arity, not by the argument type, and it's possible to define a variable-arity function using rest parameters with a `&`:
+
+```clojure
+user=> (defn triple "the triple of nothing is zero" [number & other_numbers] (str (* number 3) " ignoring these: " (clojure.string/join ", "other_numbers)))
+#'user/triple
+user=> (triple 5 6 78 9)
+"15 ignoring these: 6, 78, 9"
+```
+
+this is similar to how overloading works in Java, except for the fact you can't tell arguments by their type but only from the arity. Javascript on the other hand has no explicit function overload.
+
+Destructuring
+-------------
+TODO continue
